@@ -13,48 +13,7 @@ $(document).ready(function() {
       h = canvas.height,
       center = w / 2;
 
-    // 9pm blue (69, 71, 196)
-    // 10pm (52.75, 54.5, 150.25)
-    // 11pm (36.5, 38, 104.5)
-    // 12am (20.25, 21.5, 58.75)
-    // 1am dark blue (4, 5, 13)
-
-    // 1am dark orange (15, 6, 5) ***
-    // 2am (63, 24.75, 20.5)
-    // 3am (111, 43.5, 36)
-    // 4am (159, 62.25, 51.5)
-    // 5am (207, 81, 67)
-    // 6 am bright orange (255, 100, 83)
-
-    // 7am (255, 122, 85.5)
-    // 8am (255, 144, 88)
-    // 9am (255, 166, 90.5)
-    // 10am (255, 188, 93)
-    // 11am light gold (255, 210, 95)
-
-    // 12pm (255, 229.5, 164.6)
-    // 1pm pale yellow (255, 249, 234)
-
-    // 2pm (227, 244, 244.5,)
-    // 3pm pale blue (199, 239, 255)
-
-    // 4pm (121.5, 208, 255)
-    // 5pm bright blue (44, 177, 255)
-
-    // 6pm (72, 130, 255)
-    // 7pm blue-purple (100, 83, 255)
-
-    // 8pm (84.5, 77, 225.5)
-    // 9pm blue (69, 71, 196)
-
-    var changeColor = function() {
-      var r = 100 - 0.5 * sec,
-        g = 83 - 0.25 * sec,
-        b = 255 - sec;
-      body.css("background-color", "rgb(" + r + ", " + g + ", " + b + ")"); 
-    };
-
-    makeMarks = function(distance) {
+    var makeMarks = function(distance) {
       var theta = 0;
 
       for (var i = 0; i < 60; i += 1) {
@@ -70,7 +29,7 @@ $(document).ready(function() {
       }
     };
 
-    makeSecHand = function() {
+    var makeSecHand = function() {
       makeMarks(100);
       var theta = (6 * Math.PI / 180);
       var x = center + 100 * Math.cos(sec * theta - Math.PI / 2);
@@ -82,7 +41,7 @@ $(document).ready(function() {
       context.fill();
     };
 
-    makeMinHand = function() {
+    var makeMinHand = function() {
       makeMarks(180);
       var theta = (6 * Math.PI / 180);
       var x = center + 180 * Math.cos((min + (sec / 60)) * theta - Math.PI / 2);
@@ -94,7 +53,7 @@ $(document).ready(function() {
       context.fill();
     };
 
-    makeNumbers = function() {
+    var makeNumbers = function() {
       var theta = 0;
 
       for (var i = 4; i <= 16; i += 1) {
@@ -115,11 +74,13 @@ $(document).ready(function() {
       }
     };
 
-    makeHourHand = function() {
+    var makeHourHand = function() {
       makeNumbers();
-      var theta = (30 * Math.PI / 180);
-      var x = center + 250 * Math.cos((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2);
-      var y = center + 250 * Math.sin((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2);
+      hour = hour >= 12 ? hour - 12 : hour;
+      console.log(hour);
+      var theta = (30 * Math.PI / 180),
+        x = center + 250 * Math.cos((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2),
+        y = center + 250 * Math.sin((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2);
 
       context.fillStyle = '#28ca9c';
       context.beginPath();
@@ -127,19 +88,74 @@ $(document).ready(function() {
       context.fill();
     };
 
-    makeClock = function() {
+    var makeClock = function() {
       makeHourHand();
       makeMinHand();
       makeSecHand();
     };
 
-    getTime = function() {
+    // 0 (20.25, 21.5, 58.75)
+
+    // 1 dark blue (4, 5, 13)
+    // 1 dark orange (15, 6, 5) ***
+
+    // 2 (63, 24.75, 20.5)
+
+    // 3 (111, 43.5, 36)
+
+    // 4 (159, 62.25, 51.5)
+
+    // 5 (207, 81, 67)
+
+    // 6 bright orange (255, 100, 83)
+
+    // 7 (255, 122, 85.5)
+
+    // 8 (255, 144, 88)
+
+    // 9 (255, 166, 90.5)
+
+    // 10 (255, 188, 93)
+
+    // 11 light gold (255, 210, 95)
+
+    // 12 (255, 229.5, 164.6)
+
+    // 13 pale yellow (255, 249, 234)
+
+    // 14 (227, 244, 244.5)
+
+    // 15 pale blue (199, 239, 255)
+
+    // 16 (121.5, 208, 255)
+
+    // 17 bright blue (44, 177, 255)
+
+    // 18 (72, 130, 255)
+
+    // 19 blue-purple (100, 83, 255)
+
+    // 20 (84.5, 77, 225.5)
+
+    // 21 blue (69, 71, 196)
+
+    // 22 (52.75, 54.5, 150.25)
+
+    // 23 (36.5, 38, 104.5)
+
+    var changeColor = function() {
+      console.log(hour, min, sec);
+      var r = 100 - 0.5 * sec,
+        g = 83 - 0.25 * sec,
+        b = 255 - sec;
+      body.css("background-color", "rgb(" + r + ", " + g + ", " + b + ")"); 
+    };
+
+    var getTime = function() {
       now = new Date();
       hour = now.getHours();
       min = now.getMinutes();
       sec = now.getSeconds();
-
-      hour = hour >= 12 ? hour - 12 : hour;
 
       console.log(hour, min, sec);
     };
@@ -147,8 +163,8 @@ $(document).ready(function() {
     clock.display = function() {
       context.clearRect(0, 0, w, h);
       getTime();
-      makeClock();
       changeColor();
+      makeClock();
     };
 
 
