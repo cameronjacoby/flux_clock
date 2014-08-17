@@ -14,27 +14,37 @@ $(document).ready(function() {
       center = w / 2;
 
     // 9pm blue (69, 71, 196)
+    // 10pm (52.75, 54.5, 150.25)
+    // 11pm (36.5, 38, 104.5)
+    // 12am (20.25, 21.5, 58.75)
     // 1am dark blue (4, 5, 13)
 
-    // 1am dark orange (15, 6, 5)
+    // 1am dark orange (15, 6, 5) ***
+    // 2am (63, 24.75, 20.5)
+    // 3am (111, 43.5, 36)
+    // 4am (159, 62.25, 51.5)
+    // 5am (207, 81, 67)
     // 6 am bright orange (255, 100, 83)
 
-    // 6am bright orange (255, 100, 83)
+    // 7am (255, 122, 85.5)
+    // 8am (255, 144, 88)
+    // 9am (255, 166, 90.5)
+    // 10am (255, 188, 93)
     // 11am light gold (255, 210, 95)
 
-    // 11am light gold (255, 210, 95)
+    // 12pm (255, 229.5, 164.6)
     // 1pm pale yellow (255, 249, 234)
 
-    // 1pm pale yellow (255, 249, 234)
+    // 2pm (227, 244, 244.5,)
     // 3pm pale blue (199, 239, 255)
 
-    // 3pm pale blue (199, 239, 255)
+    // 4pm (121.5, 208, 255)
     // 5pm bright blue (44, 177, 255)
 
-    // 5pm bright blue (44, 177, 255)
+    // 6pm (72, 130, 255)
     // 7pm blue-purple (100, 83, 255)
 
-    // 7pm blue-purple (100, 83, 255)
+    // 8pm (84.5, 77, 225.5)
     // 9pm blue (69, 71, 196)
 
     var changeColor = function() {
