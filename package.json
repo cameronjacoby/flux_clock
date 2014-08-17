@@ -1,0 +1,24 @@
+{
+  "name": "FluxClock",
+  "version": "0.0.1",
+  "description": "Real-time analog clock that changes color based on the time of day.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cameronjacoby/flux_clock.git"
+  },
+  "author": "Cameron Jacoby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cameronjacoby/flux_clock/issues"
+  },
+  "homepage": "https://github.com/cameronjacoby/flux_clock",
+  "dependencies": {
+    "body-parser": "^1.6.5",
+    "ejs": "^1.0.0",
+    "express": "^4.8.4"
+  }
+}
