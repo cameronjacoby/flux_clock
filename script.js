@@ -12,7 +12,10 @@ $(document).ready(function() {
       sec,
       w = canvas.width,
       h = canvas.height,
-      center = w / 2;
+      center = w / 2,
+      complement,
+      triad1,
+      triad2;
 
 
     var makeMarks = function(distance) {
@@ -26,7 +29,7 @@ $(document).ready(function() {
         y = center + distance * Math.sin(theta);
 
         context.beginPath();
-        context.fillStyle = '#A8A7B0';
+        context.fillStyle = complement;
         context.arc(x, y, 1, 0, Math.PI * 2, true);
         context.fill();
         context.closePath();
@@ -40,7 +43,7 @@ $(document).ready(function() {
         x = center + 100 * Math.cos(sec * theta - Math.PI / 2),
         y = center + 100 * Math.sin(sec * theta - Math.PI / 2);
 
-      context.fillStyle = '#28ca9c';
+      context.fillStyle = complement;
       context.beginPath();
       context.arc(x, y, 5, 0, 2 * Math.PI);
       context.fill();
@@ -53,7 +56,7 @@ $(document).ready(function() {
         x = center + 180 * Math.cos((min + (sec / 60)) * theta - Math.PI / 2),
         y = center + 180 * Math.sin((min + (sec / 60)) * theta - Math.PI / 2);
 
-      context.fillStyle = '#28ca9c';
+      context.fillStyle = complement;
       context.beginPath();
       context.arc(x, y, 10, 0, 2 * Math.PI);
       context.fill();
@@ -70,10 +73,10 @@ $(document).ready(function() {
         x = center + 250 * Math.cos(theta);
         y = center + 250 * Math.sin(theta);
 
-        context.font = "16px 'Futura'";
+        context.font = '16px "Futura"';
         context.textBaseline = 'middle';
         context.textAlign = 'center';
-        context.fillStyle = '#A8A7B0';
+        context.fillStyle = complement;
 
         if (i < 13) {
           context.fillText(i, x, y);
@@ -92,7 +95,7 @@ $(document).ready(function() {
         x = center + 250 * Math.cos((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2),
         y = center + 250 * Math.sin((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2);
 
-      context.fillStyle = '#28ca9c';
+      context.fillStyle = complement;
       context.beginPath();
       context.arc(x, y, 20, 0, 2 * Math.PI);
       context.fill();
@@ -107,42 +110,43 @@ $(document).ready(function() {
 
 
     var changeColor = function() {
-      var r,
+      var m,
+        r,
         g,
         b;
 
       var modCheck = function() {
         if (min % 4 === 0) {
-          min = min;
+          m = min;
         }
         else if (min % 2 === 0) {
-          min = min + 2;
+          m = min + 2;
         }
         else if (min % 3 === 0) {
           if (min === 9 || min === 21 || min === 33 || min === 45 || min === 57) {
-            min = min + 3;
+            m = min + 3;
           }
           else {
-            min = min + 1;
+            m = min + 1;
           }
         }
         else if (min % 1 === 0) {
           if (min === 7 || min === 11 || min === 19 || min === 23 || min === 31 ||
             min === 35 || min === 47 || min === 43 || min === 55 || min === 59) {
-              min = min + 1;
+              m = min + 1;
           }
           else {
-            min = min + 3;
+            m = min + 3;
           }
         }
       };
 
       modCheck();
 
-      var pickColor = function(red, green, blue, rI, gI, bI) {
-        r = red + rI * min;
-        g = green + gI * min;
-        b = blue + bI * min;
+      var pickColor = function(red, green, blue, rTimes, gTimes, bTimes) {
+        r = red + rTimes * m;
+        g = green + gTimes * m;
+        b = blue + bTimes * m;
       };
 
       if (hour < 1) {
@@ -218,7 +222,26 @@ $(document).ready(function() {
         pickColor(37, 38, 105, -0.25, -0.25, -0.75);
       }
 
-      body.css("background-color", "rgb(" + r + ", " + g + ", " + b + ")");
+      body.css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ')');
+
+      function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? '0' + hex : hex;
+      }
+
+      function rgbToHex(r, g, b) {
+        return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
+      }
+
+      console.log(r, g, b);
+
+      // var hex = rgbToHex(r, g, b);
+      // console.log(hex);
+
+      complement = 'rgb(' + (255 - r) + ', ' + (255 - g) + ', ' + (255 - b) + ')';
+
+      triad1 = 'rgb(' + g + ', ' + b + ', ' + r + ')';
+      triad2 = 'rgb(' + b + ', ' + r + ', ' + g + ')';
     };
 
 
