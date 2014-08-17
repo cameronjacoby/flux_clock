@@ -1,6 +1,6 @@
 $(document).ready(function() {
-  var canvas = $('#canvas')[0];
-  var context = canvas.getContext('2d');
+  var canvas = $('#canvas')[0],
+    context = canvas.getContext('2d');
 
   (function(clock, $, undefined) {
 
@@ -11,6 +11,10 @@ $(document).ready(function() {
       w = canvas.width,
       h = canvas.height,
       center = w / 2;
+
+    changeColor = function() {
+
+    };
 
     makeMarks = function(distance) {
       var theta = 0;
@@ -41,9 +45,8 @@ $(document).ready(function() {
     };
 
     makeMinHand = function() {
-      console.log('making marks');
       makeMarks(180);
-      var theta = (6 + Math.PI / 180);
+      var theta = (6 * Math.PI / 180);
       var x = center + 180 * Math.cos((min + (sec / 60)) * theta - Math.PI / 2);
       var y = center + 180 * Math.sin((min + (sec / 60)) * theta - Math.PI / 2);
 
@@ -75,11 +78,10 @@ $(document).ready(function() {
     };
 
     makeHourHand = function() {
-      console.log('making numbers');
       makeNumbers();
-      var theta = (Math.PI / 180);
-      var x = center + 250 * Math.cos(theta);
-      var y = center + 250 * Math.sin(theta);
+      var theta = (30 * Math.PI / 180);
+      var x = center + 250 * Math.cos((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2);
+      var y = center + 250 * Math.sin((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2);
 
       context.fillStyle = '#28ca9c';
       context.beginPath();
@@ -88,22 +90,20 @@ $(document).ready(function() {
     };
 
     makeClock = function() {
-      console.log('making hour hand');
       makeHourHand();
-      console.log('making min hand');
       makeMinHand();
-      console.log('making sec hand');
       makeSecHand();
     };
 
     getTime = function() {
-     var now = new Date(),
-        hour = now.getHours(),
-        min = now.getMinutes(),
-        sec = now.getSeconds();
+      now = new Date();
+      hour = now.getHours();
+      min = now.getMinutes();
+      sec = now.getSeconds();
 
-        hour = hour >= 12 ? hour - 12 : hour;
-        console.log(hour, min, sec);
+      hour = hour >= 12 ? hour - 12 : hour;
+
+      console.log(hour, min, sec);
     };
 
     clock.display = function() {
@@ -114,24 +114,6 @@ $(document).ready(function() {
 
 
   }(window.clock = window.clock || {}, jQuery));
-  
-  // function showClock() {
-
-  //   if (canvas.getContext) {
-
-  //     context.fillStyle = "rgba(0, 200, 0, 0.5)";
-  //     context.beginPath();
-  //     context.arc(275,275,10,0,Math.PI*2,true); // Outer circle
-  //     context.fill();
-
-  //     context.beginPath();
-  //     context.arc(275,375,10,0,Math.PI*2,true); // Outer circle
-  //     context.fill();
-
-  //   } else {
-  //     // DISPLAY DIGITAL CLOCK TEXT AS IE FALLBACK
-  //   }
-  // }
 
   clock.display();
 
