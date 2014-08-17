@@ -15,3 +15,11 @@ FluxClock displays the time at the user's current location. The clock cycles thr
 * AJAX
 
 ###Find it here: [http://fluxclock.herokuapp.com/](http://globetweet.herokuapp.com/)
+
+--------------------
+
+### Screenshots:
+
+####4:23 PM
+
+![ScreenShot](public/screenshots/screenshot_14_23.png)
