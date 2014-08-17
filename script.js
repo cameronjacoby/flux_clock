@@ -77,7 +77,8 @@ $(document).ready(function() {
 
         if (i < 13) {
           context.fillText(i, x, y);
-        } else if (i >= 13) {
+        } 
+        else if (i >= 13) {
           context.fillText(i - 12, x, y);
         }
       }
@@ -108,8 +109,7 @@ $(document).ready(function() {
     var changeColor = function() {
       var r,
         g,
-        b,
-        pickColor;
+        b;
 
       var modCheck = function() {
         if (min % 4 === 0) {
@@ -121,7 +121,8 @@ $(document).ready(function() {
         else if (min % 3 === 0) {
           if (min === 9 || min === 21 || min === 33 || min === 45 || min === 57) {
             min = min + 3;
-          } else {
+          }
+          else {
             min = min + 1;
           }
         }
@@ -129,7 +130,8 @@ $(document).ready(function() {
           if (min === 7 || min === 11 || min === 19 || min === 23 || min === 31 ||
             min === 35 || min === 47 || min === 43 || min === 55 || min === 59) {
               min = min + 1;
-          } else {
+          }
+          else {
             min = min + 3;
           }
         }
@@ -137,135 +139,83 @@ $(document).ready(function() {
 
       modCheck();
 
+      var pickColor = function(red, green, blue, rI, gI, bI) {
+        r = red + rI * min;
+        g = green + gI * min;
+        b = blue + bI * min;
+      };
+
       if (hour < 1) {
-        r = 20 - 0.25 * min;
-        g = 22 - 0.25 * min;
-        b = 59 - 0.75 * min;
+        pickColor(20, 22, 59, -0.25, -0.25, -0.75);
       }
-
+      else if (hour < 2) {
+        pickColor(15, 6, 5, 0.75, 0.25, 0.25);
+      }
+      else if (hour < 3) {
+        pickColor(63, 25, 21, 0.75, 0.25, 0.25);
+      }
+      else if (hour < 4) {
+        pickColor(111, 44, 36, 0.75, 0.25, 0.25);
+      }
+      else if (hour < 5) {
+        pickColor(159, 62, 52, 0.75, 0.25, 0.25);
+      } 
       else if (hour < 6) {
-        pickColor = function(red, green, blue) {
-          r = red + 0.75 * min;
-          g = green + 0.25 * min;
-          b = blue + 0.25 * min;
-        };
-        if (hour < 2) {
-          pickColor(15, 6, 5);
-        }
-        else if (hour < 3) {
-          pickColor(63, 25, 21);
-        }
-        else if (hour < 4) {
-          pickColor(111, 44, 36);
-        }
-        else if (hour < 5) {
-          pickColor(159, 62, 52);
-        } else {
-          pickColor(207, 81, 67);
-        }
+        pickColor(207, 81, 67, 0.75, 0.25, 0.25);
       }
-
+      else if (hour < 7) {
+        pickColor(255, 100, 83, 0, 0.25, 0);
+      }
+      else if (hour < 8) {
+        pickColor(255, 122, 86, 0, 0.25, 0);
+      }
+      else if (hour < 9) {
+        pickColor(255, 144, 88, 0, 0.25, 0);
+      }
+      else if (hour < 10) {
+        pickColor(255, 166, 91, 0, 0.25, 0);
+      }
       else if (hour < 11) {
-        pickColor = function(green, blue) {
-          r = 255;
-          g = green + 0.25 * min;
-          b = blue;
-        };
-        if (hour < 7) {
-          pickColor(100, 83);
-        }
-        else if (hour < 8) {
-          pickColor(122, 86);
-        }
-        else if (hour < 9) {
-          pickColor(144, 88);
-        }
-        else if (hour < 10) {
-          pickColor(166, 91);
-        } else {
-          pickColor(188, 93);
-        }
+        pickColor(255, 188, 93, 0, 0.25, 0);
       }
-
+      else if (hour < 12) {
+        pickColor(255, 210, 95, 0, 0.25, 1.25);
+      }
       else if (hour < 13) {
-        pickColor = function(green, blue) {
-          r = 255;
-          g = green + 0.25 * min;
-          b = blue + 1.25 * min;
-        };
-        if (hour < 12) {
-          pickColor(210, 95);
-        } else {
-          pickColor(230, 165);
-        }
+        pickColor(255, 230, 165, 0, 0.25, 1.25);
       }
-
+      else if (hour < 14) {
+        pickColor(255, 249, 234, -0.5, 0, 0.25);
+      }
       else if (hour < 15) {
-        pickColor = function(red, green, blue) {
-          r = red - 0.5 * min;
-          g = green;
-          b = blue + 0.25 * min;
-        };
-        if (hour < 14) {
-          pickColor(255, 249, 234);
-        } else {
-          pickColor(227, 244, 245);
-        }
+        pickColor(227, 244, 245, -0.5, 0, 0.25);
       }
-
+      else if (hour < 16) {
+        pickColor(199, 239, 255, -1.25, -0.5, 0);
+      }
       else if (hour < 17) {
-        pickColor = function(red, green) {
-          r = red - 1.25 * min;
-          g = green - 0.5 * min;
-          b = 255;
-        };
-        if (hour < 16) {
-          pickColor(199, 239);
-        } else {
-          pickColor(122, 208);
-        }
+        pickColor(122, 208, 255, -1.25, -0.5, 0);
       }
-
+      else if (hour < 18) {
+        pickColor(44, 177, 255, 0.5, -0.75, 0);
+      }
       else if (hour < 19) {
-        pickColor = function(red, green) {
-          r = red + 0.5 * min;
-          g = green - 0.75 * min;
-          b = 255;
-        };
-        if (hour < 18) {
-          pickColor(44, 177);
-        } else {
-          pickColor(72, 130);
-        }
+        pickColor(72, 130, 255, 0.5, -0.75, 0);
       }
-
+      else if (hour < 20) {
+        pickColor(100, 83, 255, -0.25, 0, -0.5);
+      }
       else if (hour < 21) {
-        pickColor = function(red, green, blue) {
-          r = red - 0.25 * min;
-          g = green;
-          b = blue - 0.5 * min;
-        };
-        if (hour < 20) {
-          pickColor(100, 83, 255);
-        } else {
-          pickColor(85, 77, 226);
-        }
+        pickColor(85, 77, 226, -0.25, 0, -0.5);
       }
-
+      else if (hour < 22) {
+        pickColor(69, 71, 196, -0.25, -0.25, -0.75);
+      }
+      else if (hour < 23) {
+        pickColor(53, 55, 150, -0.25, -0.25, -0.75);
+      }
       else {
-        pickColor = function(red, green, blue) {
-          r = red - 0.25 * min;
-          g = green - 0.25 * min;
-          b = blue - 0.75 * min;
-        };
-        if (hour < 22) {
-          pickColor(69, 71, 196);
-        }
-        else if (hour < 23) {
-          pickColor(53, 55, 150);
-        } else {
-          pickColor(37, 38, 105);
-        }
+        pickColor(37, 38, 105, -0.25, -0.25, -0.75);
       }
 
       body.css("background-color", "rgb(" + r + ", " + g + ", " + b + ")");
