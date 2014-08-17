@@ -3,6 +3,7 @@ $(document).ready(function() {
     context = canvas.getContext('2d'),
     body = $('body');
 
+
   (function(clock, $, undefined) {
 
     var now,
@@ -13,8 +14,11 @@ $(document).ready(function() {
       h = canvas.height,
       center = w / 2;
 
+
     var makeMarks = function(distance) {
-      var theta = 0;
+      var theta = 0,
+        x,
+        y;
 
       for (var i = 0; i < 60; i += 1) {
         theta = theta + (6 * Math.PI / 180);
@@ -29,11 +33,12 @@ $(document).ready(function() {
       }
     };
 
+
     var makeSecHand = function() {
       makeMarks(100);
-      var theta = (6 * Math.PI / 180);
-      var x = center + 100 * Math.cos(sec * theta - Math.PI / 2);
-      var y = center + 100 * Math.sin(sec * theta - Math.PI / 2);
+      var theta = (6 * Math.PI / 180),
+        x = center + 100 * Math.cos(sec * theta - Math.PI / 2),
+        y = center + 100 * Math.sin(sec * theta - Math.PI / 2);
 
       context.fillStyle = '#28ca9c';
       context.beginPath();
@@ -41,11 +46,12 @@ $(document).ready(function() {
       context.fill();
     };
 
+
     var makeMinHand = function() {
       makeMarks(180);
-      var theta = (6 * Math.PI / 180);
-      var x = center + 180 * Math.cos((min + (sec / 60)) * theta - Math.PI / 2);
-      var y = center + 180 * Math.sin((min + (sec / 60)) * theta - Math.PI / 2);
+      var theta = (6 * Math.PI / 180),
+        x = center + 180 * Math.cos((min + (sec / 60)) * theta - Math.PI / 2),
+        y = center + 180 * Math.sin((min + (sec / 60)) * theta - Math.PI / 2);
 
       context.fillStyle = '#28ca9c';
       context.beginPath();
@@ -53,8 +59,11 @@ $(document).ready(function() {
       context.fill();
     };
 
+
     var makeNumbers = function() {
-      var theta = 0;
+      var theta = 0,
+        x,
+        y;
 
       for (var i = 4; i <= 16; i += 1) {
         theta = theta + (30 * Math.PI / 180);
@@ -74,6 +83,7 @@ $(document).ready(function() {
       }
     };
 
+
     var makeHourHand = function() {
       makeNumbers();
       hour = hour >= 12 ? hour - 12 : hour;
@@ -87,16 +97,19 @@ $(document).ready(function() {
       context.fill();
     };
 
+
     var makeClock = function() {
       makeHourHand();
       makeMinHand();
       makeSecHand();
     };
 
+
     var changeColor = function() {
       var r,
         g,
-        b;
+        b,
+        pickColor;
 
       var modCheck = function() {
         if (min % 4 === 0) {
@@ -108,8 +121,7 @@ $(document).ready(function() {
         else if (min % 3 === 0) {
           if (min === 9 || min === 21 || min === 33 || min === 45 || min === 57) {
             min = min + 3;
-          }
-          else {
+          } else {
             min = min + 1;
           }
         }
@@ -117,193 +129,157 @@ $(document).ready(function() {
           if (min === 7 || min === 11 || min === 19 || min === 23 || min === 31 ||
             min === 35 || min === 47 || min === 43 || min === 55 || min === 59) {
               min = min + 1;
-          }
-          else {
-
+          } else {
             min = min + 3;
           }
         }
       };
 
+      modCheck();
+
       if (hour < 1) {
-        modCheck();
         r = 20 - 0.25 * min;
         g = 22 - 0.25 * min;
         b = 59 - 0.75 * min;
       }
 
-      else if (hour < 2) {
-        modCheck();
-        r = 15 + 0.75 * min;
-        g = 6 + 0.25 * min;
-        b = 5 + 0.25 * min;
-      }
-
-      else if (hour < 3) {
-        modCheck();
-        r = 63 + 0.75 * min;
-        g = 25 + 0.25 * min;
-        b = 21 + 0.25 * min;
-      }
-
-      else if (hour < 4) {
-        modCheck();
-        r = 111 + 0.75 * min;
-        g = 44 + 0.25 * min;
-        b = 36 + 0.25 * min;
-      }
-
-      else if (hour < 5) {
-        modCheck();
-        r = 159 + 0.75 * min;
-        g = 62 + 0.25 * min;
-        b = 52 + 0.25 * min;
-      }
-
       else if (hour < 6) {
-        modCheck();
-        r = 207 + 0.75 * min;
-        g = 81 + 0.25 * min;
-        b = 67 + 0.25 * min;
-      }
-
-      else if (hour < 7) {
-        modCheck();
-        r = 255;
-        g = 100 + 0.25 * min;
-        b = 83;
-      }
-
-      else if (hour < 8) {
-        modCheck();
-        r = 255;
-        g = 122 + 0.25 * min;
-        b = 86;
-      }
-
-      else if (hour < 9) {
-        modCheck();
-        r = 255;
-        g = 144 + 0.25 * min;
-        b = 88;
-      }
-
-      else if (hour < 10) {
-        modCheck();
-        r = 255;
-        g = 166 + 0.25 * min;
-        b = 91;
+        pickColor = function(red, green, blue) {
+          r = red + 0.75 * min;
+          g = green + 0.25 * min;
+          b = blue + 0.25 * min;
+        };
+        if (hour < 2) {
+          pickColor(15, 6, 5);
+        }
+        else if (hour < 3) {
+          pickColor(63, 25, 21);
+        }
+        else if (hour < 4) {
+          pickColor(111, 44, 36);
+        }
+        else if (hour < 5) {
+          pickColor(159, 62, 52);
+        } else {
+          pickColor(207, 81, 67);
+        }
       }
 
       else if (hour < 11) {
-        modCheck();
-        r = 255;
-        g = 188 + 0.25 * min;
-        b = 93;
-      }
-
-      else if (hour < 12) {
-        modCheck();
-        r = 255;
-        g = 210 + 0.25 * min;
-        b = 95 + 1.25 * min;
+        pickColor = function(green, blue) {
+          r = 255;
+          g = green + 0.25 * min;
+          b = blue;
+        };
+        if (hour < 7) {
+          pickColor(100, 83);
+        }
+        else if (hour < 8) {
+          pickColor(122, 86);
+        }
+        else if (hour < 9) {
+          pickColor(144, 88);
+        }
+        else if (hour < 10) {
+          pickColor(166, 91);
+        } else {
+          pickColor(188, 93);
+        }
       }
 
       else if (hour < 13) {
-        modCheck();
-        r = 255;
-        g = 230 + 0.25 * min;
-        b = 165 + 1.25 * min;
-      }
-
-      else if (hour < 14) {
-        modCheck();
-        r = 255 - 0.5 * min;
-        g = 249;
-        b = 234 + 0.25 * min;
+        pickColor = function(green, blue) {
+          r = 255;
+          g = green + 0.25 * min;
+          b = blue + 1.25 * min;
+        };
+        if (hour < 12) {
+          pickColor(210, 95);
+        } else {
+          pickColor(230, 165);
+        }
       }
 
       else if (hour < 15) {
-        modCheck();
-        r = 227 - 0.5 * min;
-        g = 244;
-        b = 245 + 0.25 * min;
-      }
-
-      else if (hour < 16) {
-        modCheck();
-        r = 199 - 1.25 * min;
-        g = 239 - 0.5 * min;
-        b = 255;
+        pickColor = function(red, green, blue) {
+          r = red - 0.5 * min;
+          g = green;
+          b = blue + 0.25 * min;
+        };
+        if (hour < 14) {
+          pickColor(255, 249, 234);
+        } else {
+          pickColor(227, 244, 245);
+        }
       }
 
       else if (hour < 17) {
-        modCheck();
-        r = 122 - 1.25 * min;
-        g = 208 - 0.5 * min;
-        b = 255;
-      }
-
-      else if (hour < 18) {
-        modCheck();
-        r = 44 + 0.5 * min;
-        g = 177 - 0.75 * min;
-        b = 255;
+        pickColor = function(red, green) {
+          r = red - 1.25 * min;
+          g = green - 0.5 * min;
+          b = 255;
+        };
+        if (hour < 16) {
+          pickColor(199, 239);
+        } else {
+          pickColor(122, 208);
+        }
       }
 
       else if (hour < 19) {
-        modCheck();
-        r = 72 + 0.5 * min;
-        g = 130 - 0.75 * min;
-        b = 255;
-      }
-
-      else if (hour < 20) {
-        modCheck();
-        r = 100 - 0.25 * min;
-        g = 83;
-        b = 255 - 0.5 * min;
+        pickColor = function(red, green) {
+          r = red + 0.5 * min;
+          g = green - 0.75 * min;
+          b = 255;
+        };
+        if (hour < 18) {
+          pickColor(44, 177);
+        } else {
+          pickColor(72, 130);
+        }
       }
 
       else if (hour < 21) {
-        modCheck();
-        r = 85 - 0.25 * min;
-        g = 77;
-        b = 226 - 0.5 * min;
-      }
-
-      else if (hour < 22) {
-        modCheck();
-        r = 69 - 0.25 * min;
-        g = 71 - 0.25 * min;
-        b = 196 - 0.75 * min;
-      }
-
-      else if (hour < 23) {
-        modCheck();
-        r = 53 - 0.25 * min;
-        g = 55 - 0.25 * min;
-        b = 150 - 0.75 * min;
+        pickColor = function(red, green, blue) {
+          r = red - 0.25 * min;
+          g = green;
+          b = blue - 0.5 * min;
+        };
+        if (hour < 20) {
+          pickColor(100, 83, 255);
+        } else {
+          pickColor(85, 77, 226);
+        }
       }
 
       else {
-        modCheck();
-        r = 37 - 0.25 * min;
-        g = 38 - 0.25 * min;
-        b = 105 - 0.75 * min;
+        pickColor = function(red, green, blue) {
+          r = red - 0.25 * min;
+          g = green - 0.25 * min;
+          b = blue - 0.75 * min;
+        };
+        if (hour < 22) {
+          pickColor(69, 71, 196);
+        }
+        else if (hour < 23) {
+          pickColor(53, 55, 150);
+        } else {
+          pickColor(37, 38, 105);
+        }
       }
 
       body.css("background-color", "rgb(" + r + ", " + g + ", " + b + ")");
     };
+
 
     var getTime = function() {
       now = new Date();
       hour = now.getHours();
       min = now.getMinutes();
       sec = now.getSeconds();
-
       console.log(hour, min, sec);
     };
+
 
     clock.display = function() {
       context.clearRect(0, 0, w, h);
