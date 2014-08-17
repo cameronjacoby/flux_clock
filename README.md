@@ -14,7 +14,7 @@ FluxClock displays the time at the user's current location. The clock cycles thr
 * HTML 5 Canvas
 * AJAX
 
-###Find it here: [http://fluxclock.herokuapp.com/](http://globetweet.herokuapp.com/)
+###Find it here: [http://fluxclock.herokuapp.com/](http://fluxclock.herokuapp.com/)
 
 --------------------
 
