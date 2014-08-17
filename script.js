@@ -1,6 +1,7 @@
 $(document).ready(function() {
   var canvas = $('#canvas')[0],
-    context = canvas.getContext('2d');
+    context = canvas.getContext('2d'),
+    body = $('body');
 
   (function(clock, $, undefined) {
 
@@ -12,8 +13,35 @@ $(document).ready(function() {
       h = canvas.height,
       center = w / 2;
 
-    changeColor = function() {
+    // 9pm blue (69, 71, 196)
+    // 1am dark blue (4, 5, 13)
 
+    // 1am dark orange (15, 6, 5)
+    // 6 am bright orange (255, 100, 83)
+
+    // 6am bright orange (255, 100, 83)
+    // 11am light gold (255, 210, 95)
+
+    // 11am light gold (255, 210, 95)
+    // 1pm pale yellow (255, 249, 234)
+
+    // 1pm pale yellow (255, 249, 234)
+    // 3pm pale blue (199, 239, 255)
+
+    // 3pm pale blue (199, 239, 255)
+    // 5pm bright blue (44, 177, 255)
+
+    // 5pm bright blue (44, 177, 255)
+    // 7pm blue-purple (100, 83, 255)
+
+    // 7pm blue-purple (100, 83, 255)
+    // 9pm blue (69, 71, 196)
+
+    var changeColor = function() {
+      var r = 100 - 0.5 * sec,
+        g = 83 - 0.25 * sec,
+        b = 255 - sec;
+      body.css("background-color", "rgb(" + r + ", " + g + ", " + b + ")"); 
     };
 
     makeMarks = function(distance) {
@@ -110,6 +138,7 @@ $(document).ready(function() {
       context.clearRect(0, 0, w, h);
       getTime();
       makeClock();
+      changeColor();
     };
 
 
