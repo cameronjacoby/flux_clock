@@ -13,11 +13,19 @@ $(document).ready(function() {
       w = canvas.width,
       h = canvas.height,
       center = w / 2,
-      complement,
-      triad1,
-      triad2;
+      complement;
 
 
+    // function to create hour, min, sec circles
+    var fillCircles = function(radius, x, y) {
+      context.fillStyle = complement;
+      context.beginPath();
+      context.arc(x, y, radius, 0, 2 * Math.PI);
+      context.fill();
+    };
+
+
+    // function to make min & sec marks
     var makeMarks = function(distance) {
       var theta = 0,
         x,
@@ -37,32 +45,29 @@ $(document).ready(function() {
     };
 
 
+    // function to make sec marks & sec hand
     var makeSecHand = function() {
       makeMarks(100);
       var theta = (6 * Math.PI / 180),
         x = center + 100 * Math.cos(sec * theta - Math.PI / 2),
         y = center + 100 * Math.sin(sec * theta - Math.PI / 2);
 
-      context.fillStyle = complement;
-      context.beginPath();
-      context.arc(x, y, 5, 0, 2 * Math.PI);
-      context.fill();
+      fillCircles(5, x, y);
     };
 
 
+    // function to make min marks & min hand
     var makeMinHand = function() {
       makeMarks(180);
       var theta = (6 * Math.PI / 180),
         x = center + 180 * Math.cos((min + (sec / 60)) * theta - Math.PI / 2),
         y = center + 180 * Math.sin((min + (sec / 60)) * theta - Math.PI / 2);
 
-      context.fillStyle = complement;
-      context.beginPath();
-      context.arc(x, y, 10, 0, 2 * Math.PI);
-      context.fill();
+      fillCircles(10, x, y);
     };
 
 
+    // function to make numbers for hours
     var makeNumbers = function() {
       var theta = 0,
         x,
@@ -88,6 +93,7 @@ $(document).ready(function() {
     };
 
 
+    // function to make hour numbers & hour hand
     var makeHourHand = function() {
       makeNumbers();
       hour = hour >= 12 ? hour - 12 : hour;
@@ -95,13 +101,11 @@ $(document).ready(function() {
         x = center + 250 * Math.cos((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2),
         y = center + 250 * Math.sin((hour + (min / 60) + (sec / 3600)) * theta - Math.PI / 2);
 
-      context.fillStyle = complement;
-      context.beginPath();
-      context.arc(x, y, 20, 0, 2 * Math.PI);
-      context.fill();
+      fillCircles(20, x, y);
     };
 
 
+    // makeClock calls functions to make hours, mins, secs
     var makeClock = function() {
       makeHourHand();
       makeMinHand();
@@ -109,12 +113,16 @@ $(document).ready(function() {
     };
 
 
+    // function to change background color based on time
     var changeColor = function() {
       var m,
         r,
         g,
         b;
 
+      // color incrememts only work on mins that are multiples of 4
+      // transform each minute into a multiple of four
+      // background will increment color every 4 mins
       var modCheck = function() {
         if (min % 4 === 0) {
           m = min;
@@ -141,14 +149,17 @@ $(document).ready(function() {
         }
       };
 
+      // call modCheck to transform mins into multiples of 4
       modCheck();
 
+      // pickColor sets up formula to increment background color
       var pickColor = function(red, green, blue, rTimes, gTimes, bTimes) {
         r = red + rTimes * m;
         g = green + gTimes * m;
         b = blue + bTimes * m;
       };
 
+      // set starting point and color increments for every hour
       if (hour < 1) {
         pickColor(20, 22, 59, -0.25, -0.25, -0.75);
       }
@@ -222,38 +233,24 @@ $(document).ready(function() {
         pickColor(37, 38, 105, -0.25, -0.25, -0.75);
       }
 
+      // set background rgb color that corresponds to time
       body.css('background-color', 'rgb(' + r + ', ' + g + ', ' + b + ')');
 
-      function componentToHex(c) {
-        var hex = c.toString(16);
-        return hex.length == 1 ? '0' + hex : hex;
-      }
-
-      function rgbToHex(r, g, b) {
-        return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
-      }
-
-      console.log(r, g, b);
-
-      // var hex = rgbToHex(r, g, b);
-      // console.log(hex);
-
+      // find complementary color for clock face
       complement = 'rgb(' + (255 - r) + ', ' + (255 - g) + ', ' + (255 - b) + ')';
-
-      triad1 = 'rgb(' + g + ', ' + b + ', ' + r + ')';
-      triad2 = 'rgb(' + b + ', ' + r + ', ' + g + ')';
     };
 
 
+    // get current time
     var getTime = function() {
       now = new Date();
       hour = now.getHours();
       min = now.getMinutes();
       sec = now.getSeconds();
-      console.log(hour, min, sec);
     };
 
 
+    // display clock
     clock.display = function() {
       context.clearRect(0, 0, w, h);
       getTime();
