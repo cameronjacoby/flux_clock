@@ -18,16 +18,14 @@ FluxClock displays the time at the user's current location. The clock cycles thr
 
 --------------------
 
-### Screenshots:
+![ScreenShot](public/screenshots/14_23.png)
 
-![ScreenShot](public/screenshots/screenshot_14_23.png)
+![ScreenShot](public/screenshots/19_30.png)
 
-![ScreenShot](public/screenshots/screenshot_19_30.png)
+![ScreenShot](public/screenshots/01_00.png)
 
-![ScreenShot](public/screenshots/screenshot_01_00.png)
+![ScreenShot](public/screenshots/06_30.png)
 
-![ScreenShot](public/screenshots/screenshot_06_30.png)
+![ScreenShot](public/screenshots/10_00.png)
 
-![ScreenShot](public/screenshots/screenshot_10_00.png)
-
-![ScreenShot](public/screenshots/screenshot_12_40.png)
+![ScreenShot](public/screenshots/12_40.png)
