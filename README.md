@@ -12,7 +12,7 @@ FluxClock displays the time at the user's current location. The clock cycles thr
 * Node.js
 * Express
 * HTML 5 Canvas
-* AJAX
+* jQuery
 
 ###Find it here: [http://fluxclock.herokuapp.com/](http://fluxclock.herokuapp.com/)
 
