@@ -14,18 +14,16 @@ FluxClock displays the time at the user's current location. The clock cycles thr
 * HTML 5 Canvas
 * jQuery
 
-###Find it here: [http://fluxclock.herokuapp.com/](http://fluxclock.herokuapp.com/)
-
 --------------------
 
-![ScreenShot](public/screenshots/14_23.png)
+![ScreenShot](images/screenshots/14_23.png)
 
-![ScreenShot](public/screenshots/19_30.png)
+![ScreenShot](images/screenshots/19_30.png)
 
-![ScreenShot](public/screenshots/01_00.png)
+![ScreenShot](images/screenshots/01_00.png)
 
-![ScreenShot](public/screenshots/06_30.png)
+![ScreenShot](images/screenshots/06_30.png)
 
-![ScreenShot](public/screenshots/10_00.png)
+![ScreenShot](images/screenshots/10_00.png)
 
-![ScreenShot](public/screenshots/12_40.png)
+![ScreenShot](images/screenshots/12_40.png)
