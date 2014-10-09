@@ -9,8 +9,6 @@ FluxClock displays the time at the user's current location. The clock cycles thr
 
 ##Built With:
 
-* Node.js
-* Express
 * HTML 5 Canvas
 * jQuery
 
